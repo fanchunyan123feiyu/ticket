@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scenery"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+<include
+    layout="@layout/layout_orderbase"
+    />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/orderName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/orderIntro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:layout_marginStart="15dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/divider" />
+
+<include
+    layout="@layout/layout_bottom"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:gravity="center_vertical"
+        android:layout_marginStart="15dp">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/money"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/desp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:text="详情"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/shape_grey"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:textSize="17sp"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:layout_marginEnd="15dp"
+            android:visibility="gone"
+            />
+    </LinearLayout>
+
+</LinearLayout>

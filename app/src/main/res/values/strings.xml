@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">票务核销</string>
+    <string name="loading">正在加载中...</string>
+    <string name="hint_account">请输入账号</string>
+    <string name="hint_pwd">请输入密码</string>
+    <string name="sure">确定</string>
+    <string name="home">首页</string>
+    <string name="readSure">待确认</string>
+    <string name="setting">设置中心</string>
+    <string name="changepwd">修改密码</string>
+    <string name="allorder">全部订单</string>
+    <string name="exitlogin">退出登录</string>
+    <string name="zongorder">总订单</string>
+    <string name="codeinput">请输入核销码或扫描二维码</string>
+    <string name="oldPwdHint">请输入原密码</string>
+    <string name="oldPwd">原密码</string>
+    <string name="newPwd">新密码</string>
+    <string name="pwdNewHint">请输入新密码</string>
+    <string name="pwdFormat">密码由6-20位英文字母、数字组成</string>
+      <string name="settingicon">\ue78a</string>
+      <string name="accounticon">\ue655</string>
+      <string name="pwdicon">\ue62f</string>
+      <string name="code">\ue604</string>
+      <string name="order">\ue695</string>
+      <string name="sureicon">\ue65c</string>
+      <string name="emptydata">这里还没有任何订单</string>
+    <string name="makeSurePwd">确认密码:</string>
+    <string name="SurePwdHint">请再次输入密码确认无误</string>
+</resources>

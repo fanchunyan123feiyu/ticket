@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    >
+    <LinearLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:id="@+id/allOder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全部"
+                />
+
+            <View
+                android:id="@+id/allOrderLine"
+                style="@style/greenLine" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/readSure"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="待确认" />
+
+            <View
+                android:id="@+id/readSureLine"
+                style="@style/greenLine" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/outTicketSucess"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出票成功" />
+
+            <View
+                android:id="@+id/outTicketSucessLine"
+                style="@style/greenLine"
+              />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/outTicketFial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="出票失败" />
+
+            <View
+                android:id="@+id/outTicketFialLine"
+               style="@style/greenLine"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/haveCheck"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已核销" />
+
+            <View
+                android:id="@+id/haveCheckLine"
+               style="@style/greenLine" />
+        </LinearLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#d1d1d1"/>
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/introduce"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textSize="18sp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/orderRecylerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="@string/emptydata"
+        android:visibility="gone"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_gravity="center"/>
+    <RelativeLayout
+        android:id="@+id/noNet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/meiwangnone"
+
+            android:textSize="15sp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
+</LinearLayout>

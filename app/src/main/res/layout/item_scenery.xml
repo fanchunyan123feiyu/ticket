@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scenery"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+   >
+<android.support.v7.widget.AppCompatTextView
+    android:id="@+id/sceneryName"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="wrap_content"
+    android:textSize="16sp"
+    android:textColor="#141313"
+    android:paddingLeft="15dp"
+    android:lines="1"
+     android:ellipsize="end"
+    android:layout_gravity="center_vertical"/>
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/isSelect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/selected"
+        android:layout_gravity="right|center_vertical"
+        android:visibility="visible"
+        android:layout_marginEnd="8dp"/>
+</LinearLayout>

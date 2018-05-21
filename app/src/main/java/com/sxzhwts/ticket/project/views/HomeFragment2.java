@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -28,6 +29,7 @@ import com.sxzhwts.ticket.common.utils.DialogUtils;
 import com.sxzhwts.ticket.common.utils.EventUtil;
 import com.sxzhwts.ticket.common.utils.SharedPresUtils;
 import com.sxzhwts.ticket.common.utils.ToastUtils;
+import com.sxzhwts.ticket.common.utils.UserTokenUtils;
 import com.sxzhwts.ticket.project.MainActivity;
 import com.sxzhwts.ticket.project.adapter.NewOrderAdaper;
 import com.sxzhwts.ticket.project.adapter.base.BaseAdapter;
@@ -139,7 +141,6 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
                     Log.e("TAG", "核销码" + hexiaoCode.getText().toString().trim());
                     codeDetail(hexiaoCode.getText().toString().trim());
                 }
-
                 break;
         }
     }
@@ -218,9 +219,17 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
     }
 
     private void loadData() {
-        //  mPresenter.getAllOrder(Constant.userToken, ((MainActivity) getActivity()).resourceId);
         Log.e("TAG", Constant.userToken + "---99999---" + ((MainActivity) getActivity()).resourceId);
-        mPresenter.getReadySureOrder(Constant.userToken, ((MainActivity) getActivity()).resourceId);
+        if(!TextUtils.isEmpty(Constant.userToken)) {
+            mPresenter.getReadySureOrder(Constant.userToken, ((MainActivity) getActivity()).resourceId);
+        }else {
+            new UserTokenUtils(mContext).getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
+                @Override
+                public void tokenSuccess() {
+                    mPresenter.getReadySureOrder(Constant.userToken, ((MainActivity) getActivity()).resourceId);
+                }
+            });
+        }
     }
 
  /*   @Override
@@ -247,7 +256,6 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
         if (refreshLayout.isRefreshing()) {
             refreshLayout.finishRefresh();
         }
-
     }
 
     @Override

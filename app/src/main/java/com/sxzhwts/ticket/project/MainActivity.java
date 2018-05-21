@@ -7,6 +7,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -17,6 +18,7 @@ import com.sxzhwts.ticket.R;
 import com.sxzhwts.ticket.common.Constant;
 import com.sxzhwts.ticket.common.base.BaseAcivity;
 import com.sxzhwts.ticket.common.utils.PermmisionUtils;
+import com.sxzhwts.ticket.common.utils.UserTokenUtils;
 import com.sxzhwts.ticket.common.utils.VersionUpdateNotifyUtils;
 import com.sxzhwts.ticket.project.views.HomeFragment2;
 import com.sxzhwts.ticket.project.views.ReadySureActivity;
@@ -64,7 +66,17 @@ public class MainActivity extends BaseAcivity {
        /* versionUpdateUtils= new VersionUpdateUtils(mContext);
         versionUpdateUtils .checkVersion(Constant.clientToken);*/
         versionUpdateUtils= new VersionUpdateNotifyUtils(mContext);
-        versionUpdateUtils .checkVersion(Constant.clientToken);
+        if(!TextUtils.isEmpty(Constant.clientToken)){
+            versionUpdateUtils .checkVersion(Constant.clientToken);
+        }else{
+            new UserTokenUtils(mContext).getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
+                @Override
+                public void tokenSuccess() {
+                    versionUpdateUtils .checkVersion(Constant.clientToken);
+                }
+            });
+        }
+
     }
 
     @Override

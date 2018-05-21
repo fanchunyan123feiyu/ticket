@@ -103,7 +103,7 @@ public class VersionUpdateNotifyUtils {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         throwable.printStackTrace();
-                        Log.e("TAG", "版本更新失败");
+                        Log.e("TAG", "版本更新失败token"+token);
                     }
                 });
 

@@ -49,8 +49,9 @@ public class OrderDetailPrenster implements OrderDetailContract.Presenter{
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+
                         throwable.printStackTrace();
-                        Log.e("TAG","根据订单id获取订单详情");
+                        Log.e("TAG","根据订单id获取订单详情"+clientToken);
                         orderDetailActivity.hideLoading();
                         if (!SystemUtil.isNetworkConnected()) {
                             orderDetailActivity.showNoNet();

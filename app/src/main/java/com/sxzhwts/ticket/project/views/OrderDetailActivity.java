@@ -114,7 +114,8 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
         if (!TextUtils.isEmpty(ordercode)) {
             mPrenster.getOrderDetailByOrderCode(Constant.userToken, ordercode);
         }
-        if (!TextUtils.isEmpty(orderid)) {
+        Log.e("TAG","获取订单时的token"+Constant.userToken);
+        if (!TextUtils.isEmpty(orderid)&&!TextUtils.isEmpty(Constant.userToken)) {
             mPrenster.getOrderDetailById(Constant.userToken, orderid);
         }
     }

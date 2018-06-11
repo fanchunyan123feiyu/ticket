@@ -118,7 +118,7 @@ public class ReadySureActivity extends BaseMvpActivity<OrderListPrenster> implem
         datas = new ArrayList<OrderResult.DataEntityX.OrderlistEntity.DataEntity>();
         loadData(false);
         getSmartRefreshLayout().setEnableRefresh(true);
-        getSmartRefreshLayout().setEnableLoadmore(true);
+        getSmartRefreshLayout().setEnableLoadMore(true);
         readSureRecylerView.setLayoutManager(new LinearLayoutManager(mContext));
     }
 

@@ -28,20 +28,29 @@ public class DialogUtils {
         dialog.setMessage(content);
       */
         Log.e("TAG","显示dialog");
-         dialog = new Dialog(activity, R.style.loading_dialog_style);
-        LayoutInflater inflater = LayoutInflater.from(activity);
-        View view = inflater.inflate(R.layout.loading_layout_dialog, null);
-        AppCompatTextView textView=(AppCompatTextView)view.findViewById(R.id.tv_load_dialog);
-        textView.setText(showMsg);
-        dialog.setContentView(view);
-        Window window = dialog.getWindow();
-        if (window != null) {
-            window.setGravity(Gravity.CENTER);
-            window.setDimAmount(0.1f);
+        if(dialog!=null){
+           if(!dialog.isShowing()) {
+               Log.e("TAG","没有正在显示的   开始显示");
+               dialog.show();
+           }
+        }else{
+            Log.e("TAG","创建dialog显示");
+            dialog = new Dialog(activity, R.style.loading_dialog_style);
+            LayoutInflater inflater = LayoutInflater.from(activity);
+            View view = inflater.inflate(R.layout.loading_layout_dialog, null);
+            AppCompatTextView textView=(AppCompatTextView)view.findViewById(R.id.tv_load_dialog);
+            textView.setText(showMsg);
+            dialog.setContentView(view);
+            Window window = dialog.getWindow();
+            if (window != null) {
+                window.setGravity(Gravity.CENTER);
+                window.setDimAmount(0.1f);
+            }
+            //dialog.setCanceledOnTouchOutside(false);
+            dialog.setCancelable(false);
+            dialog.show();
         }
-        //dialog.setCanceledOnTouchOutside(false);
-        dialog.setCancelable(false);
-        dialog.show();
+
     }
 
 

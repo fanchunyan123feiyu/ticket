@@ -39,7 +39,7 @@ public class MainActivity extends BaseAcivity {
     RadioButton readySureButton;
     private HomeFragment2 homeFragment;
     public String resourceId;
-
+    private UserTokenUtils userTokenUtils;
    private VersionUpdateNotifyUtils versionUpdateUtils;
     @Override
     protected int getChildlayout() {
@@ -69,7 +69,8 @@ public class MainActivity extends BaseAcivity {
         if(!TextUtils.isEmpty(Constant.clientToken)){
             versionUpdateUtils .checkVersion(Constant.clientToken);
         }else{
-            new UserTokenUtils(mContext).getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
+            userTokenUtils= new UserTokenUtils(mContext);
+            userTokenUtils.getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
                 @Override
                 public void tokenSuccess() {
                     versionUpdateUtils .checkVersion(Constant.clientToken);
@@ -136,6 +137,9 @@ public class MainActivity extends BaseAcivity {
         super.onDestroy();
         if(versionUpdateUtils!=null){
             versionUpdateUtils=null;
+        }
+        if(userTokenUtils!=null){
+            userTokenUtils=null;
         }
     }
 }

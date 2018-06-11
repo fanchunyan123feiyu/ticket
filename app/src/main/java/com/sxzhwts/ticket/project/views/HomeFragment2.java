@@ -36,6 +36,7 @@ import com.sxzhwts.ticket.project.adapter.base.BaseAdapter;
 import com.sxzhwts.ticket.project.bean.response.HomeResulst;
 import com.sxzhwts.ticket.project.contract.HomeContract;
 import com.sxzhwts.ticket.project.event.CodeEvent;
+import com.sxzhwts.ticket.project.event.SceneryEvent;
 import com.sxzhwts.ticket.project.prenster.HomePrenster;
 import com.sxzhwts.ticket.project.ui.IconTextView;
 import com.sxzhwts.ticket.project.ui.MyTextWatcher;
@@ -150,6 +151,14 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
         codeDetail(codeEvent.result);
     }
 
+    @Subscribe
+    public void sceneryChange(SceneryEvent sceneryEvent) {
+        Log.e("TAG", "scenery  change" );
+        if(sceneryEvent.result==1){
+            loadData();
+        }
+    }
+
     private void allOrder() {
         Intent intent = new Intent(mContext, AllOrderActivity.class);
         intent.putExtra("resourceId", ((MainActivity) getActivity()).resourceId);
@@ -209,6 +218,8 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
         });
         newOrder.setLayoutManager(new LinearLayoutManager(mContext));
         newOrder.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+
+        loadData();
     }
 
     private void codeDetail(String charSequence) {
@@ -239,14 +250,22 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
         loadData();*//*
     }*/
 
-    @Override
+  /*  @Override
     public void onResume() {
         super.onResume();
         loadData();
-    }
+    }*/
+
+  /*  @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("TAG","onStart");
+        loadData();
+    }*/
 
     @Override
     public void showLoading() {
+
         DialogUtils.showProgressDialog(getActivity(), "正在加载");
     }
 
@@ -273,6 +292,14 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
 
     }
 
+ /*   @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==200&&requestCode==10001){
+            Log.e("TAG","刷新数据");
+             loadData();
+        }
+    }*/
 
     @Override
     public void getReadySureOrderSucess(HomeResulst homeResulst) {
@@ -286,7 +313,7 @@ public class HomeFragment2 extends BaseMvpFragment<HomePrenster> implements Home
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
                 intent.putExtra("orderid", datas.get(position).getId());
-                startActivity(intent);
+                startActivityForResult(intent,10001);
             }
         });
         newOrder.setAdapter(newOrderAdaper);

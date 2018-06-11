@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.sxzhwts.ticket.R;
 import com.sxzhwts.ticket.common.utils.EventUtil;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
@@ -63,18 +63,17 @@ public abstract class BaseAcivity extends RxAppCompatActivity {
             finishedActivity();
         });
         smartRefreshLayout.setEnableHeaderTranslationContent(false);
-        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(RefreshLayout refreshLayout) {
                 loadData(true);
             }
 
             @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
+            public void onRefresh(RefreshLayout refreshLayout) {
                 loadData(false);
             }
         });
-
     }
 
     //加载数据
@@ -98,9 +97,16 @@ public abstract class BaseAcivity extends RxAppCompatActivity {
         View childLayoutView = LayoutInflater.from(this).inflate(getChildlayout(), null);
         smartRefreshLayout = (SmartRefreshLayout) findViewById(R.id.refreshLayout);
         smartRefreshLayout.setEnableRefresh(false);//设置默认关闭下拉刷新功能
-        smartRefreshLayout.setEnableLoadmore(false);//默认关闭刷新，需要刷新时子类去实现
-        smartRefreshLayout.setEnableLoadmoreWhenContentNotFull(true);//设置当内容不满一个页面时，是否可以加载更多
+        smartRefreshLayout.setEnableLoadMore(false);
+       // smartRefreshLayout.setEnableHeaderTranslationContent(false);
+       // smartRefreshLayout.setEnableLoadmore(false);//默认关闭刷新，需要刷新时子类去实现
+       // smartRefreshLayout.setEnableLoadmoreWhenContentNotFull(true);//设置当内容不满一个页面时，是否可以加载更多
+       // smartRefreshLayout.setEnableNestedScroll()
+       // smartRefreshLayout.setEnableLoadMoreWhenContentNotFull(true);
         mainView.addView(childLayoutView);
+
+
+
     }
 
     protected abstract int getChildlayout();

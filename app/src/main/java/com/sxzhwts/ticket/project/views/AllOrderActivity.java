@@ -91,10 +91,13 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
         state = getIntent().getIntExtra("type", 0);
         resourceId = getIntent().getStringExtra("resourceId");
         initLine();
-        getSmartRefreshLayout().setEnableLoadmore(true);
+        getSmartRefreshLayout().setEnableLoadMore(true);
         getSmartRefreshLayout().setEnableRefresh(true);
         datas = new ArrayList<OrderResult.DataEntityX.OrderlistEntity.DataEntity>();
         orderRecylerView.setLayoutManager(new LinearLayoutManager(mContext));
+
+       /* super.onResume();
+        loadData(false);*/
     }
 /*
 
@@ -105,12 +108,31 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
     }
 */
 
+/*
     @Override
     protected void onResume() {
-        super.onResume();
+
+        Log.e("TAG","onResume page");
         loadData(false);
     }
+*/
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadData(false);
+        Log.e("TAG","onStart page");
+    }
+
+ /*   @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode==200&&requestCode==10002){
+            super.onResume();
+            loadData(false);
+        }
+    }
+*/
     @Override
     public void showNoNet() {
         super.showNoNet();
@@ -119,7 +141,7 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
             noNet.setOnClickListener(view -> {loadData(false);});
         }else{
             pageNumb--;
-            getSmartRefreshLayout().finishLoadmore();
+            getSmartRefreshLayout().finishLoadMore();
         }
 
     }
@@ -129,7 +151,7 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
         super.showError();
         if(isLoadMore){
             pageNumb--;
-            getSmartRefreshLayout().finishLoadmore();
+            getSmartRefreshLayout().finishLoadMore();
         }
     }
 
@@ -202,7 +224,6 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
 
     @Override
     public void getOrderListSucess(OrderResult orderResult) {
-         hideLoading();
         introduce.setText("订单数：" + orderResult.getData().getOrdercount() + "张 " + "￥" + SystemUtil.formatString(orderResult.getData().getOrderamount()) + "元");
         Log.e("TAG",orderResult.getData().getOrderlist().getData()+"---------");
         if(orderResult.getData().getOrderlist().getData().size()==0){
@@ -221,7 +242,7 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
                 public void onItemClick(View view, int position) {//详情
                    Intent intent= new Intent(mContext,OrderDetailActivity.class);
                    intent.putExtra("orderid",datas.get(position).getId());
-                    startActivity(intent);
+                    startActivityForResult(intent,10002);
                 }
             }, new BaseAdapter.OnItemClickListener() {//核销
                 @Override
@@ -263,6 +284,7 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
     public void verication(Result result) {//核销
         if(result.code==1){
             stateView.setVisibility(View.GONE);
+
         }
     }
 
@@ -284,6 +306,7 @@ public class AllOrderActivity extends BaseMvpActivity<OrderListPrenster> impleme
     @Override
     protected void loadData(boolean isLoadMore) {
         super.loadData(isLoadMore);
+        Log.e("TAG","显示dialog");
         showLoading();
         if(!isLoadMore){
             datas.clear();

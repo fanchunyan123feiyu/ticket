@@ -3,6 +3,7 @@ package com.sxzhwts.ticket.project.receiver;
 import android.util.Log;
 
 /**
+ * JPush
  * Created by efan on 2017/4/13.
  */
 

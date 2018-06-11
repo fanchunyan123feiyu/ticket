@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.sxzhwts.ticket.R;
 
 import butterknife.ButterKnife;
@@ -75,12 +75,12 @@ public abstract class BaseFragement extends LazyFragement {
 
     private void initBaseView() {
         smartRefreshLayout.setEnableRefresh(false);
-        smartRefreshLayout.setEnableAutoLoadmore(false);//设置自动上拉加载为不可用
-        smartRefreshLayout.setEnableLoadmore(false);//设置上拉加载
+        smartRefreshLayout.setEnableAutoLoadMore(false);//设置自动上拉加载为不可用
+        smartRefreshLayout.setEnableLoadMore(false);//设置上拉加载
         smartRefreshLayout.setEnableHeaderTranslationContent(false);
-        smartRefreshLayout.setOnRefreshLoadmoreListener(new OnRefreshLoadmoreListener() {
+        smartRefreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
+            public void onLoadMore(RefreshLayout refreshLayout) {
                 loadMoreData();
             }
 

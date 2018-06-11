@@ -87,8 +87,8 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     compile 'com.google.dagger:dagger:2.7'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.7'
-    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
-    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.3'
+    compile 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.5.1'
+    compile 'com.scwang.smartrefresh:SmartRefreshHeader:1.0.5.1'
     //没有使用特殊Header，可以不加这行
     compile 'com.airbnb.android:lottie:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -98,8 +98,6 @@ dependencies {
     // compile 'org.xutils:xutils:3.3.36'
     // implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.2.1'
     implementation 'cn.bingoogolapple:bga-qrcode-zbar:1.2.1'
-    /*   compile 'cn.jiguang.sdk:jpush:3.1.2'
-                compile 'cn.jiguang.sdk:jcore:1.2.0'*/
 
     implementation files('libs/jcore-android-1.2.0.jar')
     implementation files('libs/jpush-android-3.1.2.jar')

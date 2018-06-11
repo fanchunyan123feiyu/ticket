@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Environment;
 import android.os.Looper;
+import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.FileProvider;
 import android.util.Log;
@@ -159,6 +160,7 @@ public class VersionUpdateNotifyUtils {
            String s=String.format("%d%% \n", progress);
             String contentText = new StringBuffer().append(SystemUtil.getAppName(activity) + "  ")
                     .append(s).toString();
+
             PendingIntent contentIntent = PendingIntent.getActivity(activity,
                     0, new Intent(), PendingIntent.FLAG_CANCEL_CURRENT);
             if (notificationManager == null) {
@@ -178,7 +180,6 @@ public class VersionUpdateNotifyUtils {
 
     }
     private void writeFileToDisk(final Response<ResponseBody> response, boolean isForceUpdate) {
-        Log.e("TAG",Environment.getExternalStorageState()+"sd卡状态mounted");
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED) ) {
             new AsyncTask<Void, Void, Void>() {
                 @Override
@@ -214,22 +215,27 @@ public class VersionUpdateNotifyUtils {
     }
 
     public static void installApk(Activity activity, File t) {
+        activity.startActivity(installIntent(activity,t));
+        activity.finish();
+
+    }
+
+    @NonNull
+    private static Intent installIntent(Activity activity, File t) {
         Intent intent = new Intent();
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setAction(Intent.ACTION_VIEW);
         intent.addCategory("android.intent.category.DEFAULT");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {    //判断版本是否在7.0以上
             Uri uriForFile = FileProvider.getUriForFile(activity, "com.sxzhwts.ticket.FileProvider", t);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);  //添加这一句表示对目标应用临时授权该Uri所代表的文件
             intent.setDataAndType(uriForFile, activity.getContentResolver().getType(uriForFile));
+           // intent.setDataAndType(uriForFile, "application/vnd.android.package-archive");
         } else {
             intent.setDataAndType(Uri.fromFile(t), getMIMEType(t));
-            Log.e("TAG", getMIMEType(t) + "低于6.0的type");
             //intent.setDataAndType(Uri.fromFile(t), "application/vnd.android.package-archive");
         }
-        activity.startActivity(intent);
-        activity.finish();
-
+        return intent;
     }
 
     public static String getMIMEType(File file) {

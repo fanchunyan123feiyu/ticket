@@ -2,7 +2,6 @@ package com.sxzhwts.ticket.project.views;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatTextView;
 import android.text.Html;
 import android.text.TextUtils;
@@ -16,11 +15,14 @@ import com.sxzhwts.ticket.R;
 import com.sxzhwts.ticket.common.Constant;
 import com.sxzhwts.ticket.common.base.BaseMvpActivity;
 import com.sxzhwts.ticket.common.utils.DialogUtils;
+import com.sxzhwts.ticket.common.utils.EventUtil;
 import com.sxzhwts.ticket.common.utils.TimesUtils;
 import com.sxzhwts.ticket.common.utils.ToastUtils;
+import com.sxzhwts.ticket.common.utils.UserTokenUtils;
 import com.sxzhwts.ticket.project.bean.response.BusOrderDetailResult;
 import com.sxzhwts.ticket.project.bean.response.Result;
 import com.sxzhwts.ticket.project.contract.OrderDetailContract;
+import com.sxzhwts.ticket.project.event.SceneryEvent;
 import com.sxzhwts.ticket.project.event.SubmitEvent;
 import com.sxzhwts.ticket.project.prenster.OrderDetailPrenster;
 import com.sxzhwts.ticket.project.ui.PayMethodUtil;
@@ -28,7 +30,6 @@ import com.sxzhwts.ticket.project.ui.PayMethodUtil;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -89,6 +90,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
     View passengerView;
     private String orderid, ordercode;
     private String strChaoTai = "";
+    private UserTokenUtils userTokenUtils;
 
     @Override
     protected void initInject() {
@@ -112,11 +114,41 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
 
     private void loadData() {
         if (!TextUtils.isEmpty(ordercode)) {
-            mPrenster.getOrderDetailByOrderCode(Constant.userToken, ordercode);
+            if(!TextUtils.isEmpty(Constant.userToken)){
+                mPrenster.getOrderDetailByOrderCode(Constant.userToken, ordercode);
+            }else {
+                if(userTokenUtils==null){
+                    userTokenUtils= new UserTokenUtils(mContext);
+                }
+                userTokenUtils.getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
+                    @Override
+                    public void tokenSuccess() {
+                        Log.e("TAG","获取订单时二次获取token"+Constant.userToken);
+                        mPrenster.getOrderDetailByOrderCode(Constant.userToken, ordercode);
+                    }
+                });
+            }
+
         }
         Log.e("TAG","获取订单时的token"+Constant.userToken);
-        if (!TextUtils.isEmpty(orderid)&&!TextUtils.isEmpty(Constant.userToken)) {
-            mPrenster.getOrderDetailById(Constant.userToken, orderid);
+        if (!TextUtils.isEmpty(orderid)) {
+            if(!TextUtils.isEmpty(Constant.userToken)){
+                mPrenster.getOrderDetailById(Constant.userToken, orderid);
+            }else{
+                if(userTokenUtils==null){
+                    userTokenUtils= new UserTokenUtils(mContext);
+                }
+                userTokenUtils.getUserToken(new UserTokenUtils.UserTokenSuccessListenter() {
+                    @Override
+                    public void tokenSuccess() {
+                        Log.e("TAG","获取订单时二次获取token"+Constant.userToken);
+                        mPrenster.getOrderDetailById(Constant.userToken, orderid);
+                    }
+                });
+            }
+
+        }else {
+            finishedActivity();
         }
     }
 
@@ -257,6 +289,8 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
     @Override
     public void verication(Result result) {
         if (result.code == 1) {
+           // isRefreshData=true;
+            EventUtil.sendEvent(new SceneryEvent(1));
             state.setVisibility(View.GONE);
             stateShow.setText("已使用");
         }
@@ -267,7 +301,8 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
         if (result.code == 1) {
             Log.e("TAG","确认成功");
             loadData();
-
+          //  isRefreshData=true;
+            EventUtil.sendEvent(new SceneryEvent(1));
             ToastUtils.showToast(mContext, "确认成功");
 
         } else {
@@ -288,7 +323,7 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
         return true;
     }
 
-    @OnClick({R.id.fial, R.id.state})
+    @OnClick({R.id.fial})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fial:
@@ -296,16 +331,21 @@ public class OrderDetailActivity extends BaseMvpActivity<OrderDetailPrenster> im
                 intent.putExtra("orderId", orderid);
                 startActivity(intent);
                 break;
-            case R.id.state:
-
-                break;
         }
     }
 
-    @Override
+ /*   @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
-    }
+    }*/
+
+/*    @Override
+    public void finishedActivity() {
+        super.finishedActivity();
+        if(isRefreshData){
+            setResult(200);
+        }
+    }*/
 }

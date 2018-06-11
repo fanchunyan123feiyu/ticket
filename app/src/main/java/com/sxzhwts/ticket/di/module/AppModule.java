@@ -1,8 +1,5 @@
 package com.sxzhwts.ticket.di.module;
 
-import android.content.Context;
-
-import com.sxzhwts.ticket.MyApplication;
 import com.sxzhwts.ticket.common.api.ApiService;
 import com.sxzhwts.ticket.common.http.RetrofitHelper;
 import com.sxzhwts.ticket.common.http.UrlManger;
@@ -17,7 +14,7 @@ import dagger.Provides;
  */
 @Module
 public class AppModule {
-    private MyApplication application;
+  /*  private MyApplication application;
     public AppModule(MyApplication application) {
         this.application = application;
     }
@@ -26,7 +23,7 @@ public class AppModule {
     @Singleton
     Context provideAppContext() {
         return application;
-    }
+    }*/
 
 
     @Provides

@@ -169,9 +169,11 @@
                 <category android:name="com.sxzhwts.ticket" />
             </intent-filter>
         </receiver>
+
+        <!--版本更新所要用到的 fileProvider 用于兼容7.0通知栏的安装-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.sxzhwts.ticket.FileProvider"
+            android:authorities="${applicationId}.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

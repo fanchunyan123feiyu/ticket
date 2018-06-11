@@ -9,11 +9,13 @@ import android.view.View;
 import com.sxzhwts.ticket.R;
 import com.sxzhwts.ticket.common.Constant;
 import com.sxzhwts.ticket.common.base.BaseMvpActivity;
+import com.sxzhwts.ticket.common.utils.EventUtil;
 import com.sxzhwts.ticket.common.utils.SharedPresUtils;
 import com.sxzhwts.ticket.project.MainActivity;
 import com.sxzhwts.ticket.project.adapter.SceneryAdapter;
 import com.sxzhwts.ticket.project.bean.response.SceneryResult;
 import com.sxzhwts.ticket.project.contract.SceneryContract;
+import com.sxzhwts.ticket.project.event.SceneryEvent;
 import com.sxzhwts.ticket.project.prenster.SceneryPrenster;
 import com.sxzhwts.ticket.project.receiver.TagAliasOperatorHelper;
 
@@ -64,6 +66,7 @@ public class SelectSceneryActivity extends BaseMvpActivity<SceneryPrenster> impl
             Constant.resourceId=resourceId;
             SharedPresUtils.getSharedPresUtils(mContext).putString("resourceId",resourceId);
             startActivity(intent);
+            EventUtil.sendEvent(new SceneryEvent(1));
             finishedActivity();
         });
         sceneryRecyclerView.setAdapter(sceneryAdaper);

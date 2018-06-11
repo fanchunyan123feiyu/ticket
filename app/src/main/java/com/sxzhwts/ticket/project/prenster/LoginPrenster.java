@@ -7,6 +7,7 @@ import com.sxzhwts.ticket.common.base.BaseMvpActivity;
 import com.sxzhwts.ticket.common.utils.SystemUtil;
 import com.sxzhwts.ticket.project.bean.response.LoginResult;
 import com.sxzhwts.ticket.project.contract.LoginContract;
+import com.sxzhwts.ticket.project.convert.ResultException;
 import com.sxzhwts.ticket.project.views.LoginActivity;
 import com.sxzhwts.ticket.project.views.SplashActivity;
 
@@ -58,12 +59,14 @@ public class LoginPrenster implements LoginContract.Presenter {
                         public void accept(Throwable throwable) throws Exception {
                             throwable.printStackTrace();
                             Log.e("TAG","登录错误");
-
-                            if (SystemUtil.isNetworkConnected()) {
+                            if (!SystemUtil.isNetworkConnected()) {
                                 loginActivity.showNoNet();
                             } else  if(throwable instanceof SocketTimeoutException){
                                 loginActivity.connectTime();
-                            }else {
+                            }else if(throwable instanceof ResultException){
+                                Log.e("TAG","登录错误ResultException");
+                               Log.e("TAG","errorMessage"+((ResultException) throwable).getErrorMessage());
+                            }else{
                                 loginActivity.showError();
                             }
                         }
